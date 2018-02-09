@@ -1,0 +1,23 @@
+swagger: "2.0"
+info:
+  title: Novaxium - Commons
+  version: "1.0.0"
+
+# Hack pour la génération MAVEN
+paths:
+  /dummy:
+
+definitions:
+  Organisation:
+    properties:
+      code:
+        type: string
+      nom:
+        type: string
+
+  Etablissement:
+    properties:
+      code:
+        type: string
+      nom:
+        type: string

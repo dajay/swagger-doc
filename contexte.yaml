@@ -1,0 +1,37 @@
+swagger: "2.0"
+info:
+  title: Novaxium - Contexte
+  version: "1.0.0"
+host: 127.0.0.1:8080
+basePath: /api
+schemes: [ http, https ]
+consumes: [ application/json ]
+produces: [ application/json ]
+
+paths:
+  /contexte/organisation/{codeOrganisation}:
+    get:
+      operationId: organisationGet
+      summary: Changement d'organisation
+      parameters:
+        - in: path
+          name: codeOrganisation
+          required: true
+          schema:
+            type: string
+
+      responses:
+        "200":
+          description: Succés
+          schema:
+            title: OrganisationResponse
+            type: object
+            properties:
+              etablissements:
+                type: array
+                items:
+                $ref: './commons.yaml#/definitions/Etablissement'
+        "400":
+          description: Credentials invalides
+        "404":
+          description: Organisation ou utilisateur introuvable

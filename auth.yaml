@@ -1,0 +1,163 @@
+swagger: "2.0"
+info:
+  title: Novaxium - Authentification
+  version: "1.0.0"
+host: 127.0.0.1:8080
+basePath: /api
+schemes: [ http, https ]
+consumes: [ application/json ]
+produces: [ application/json ]
+
+paths:
+  /auth/identifier:
+    post:
+      operationId: identifierPost
+      summary: Tentative d'identification d'un utilisateur à partir de ses credentials
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            title: IdentifierRequest
+            type: object
+            required:
+              - codeOrganisation
+              - username
+              - password
+            properties:
+              codeOrganisation:
+                type: string
+              username:
+                type: string
+              password:
+                type: string
+
+      responses:
+        "200":
+          description: Succés
+          schema:
+            title: IdentifierResponse
+            type: object
+            properties:
+              contexte:
+                $ref: '#/definitions/Contexte'
+              codeRetour:
+                type: string
+                enum:
+                  - OK
+                  - NOUVEL_UTILISATEUR
+        "400":
+          description: Credentials invalides
+        "404":
+          description: Organisation ou utilisateur introuvable
+
+  /auth/motDePasseOublie:
+    post:
+      operationId: motDePasseOubliePost
+      summary: Obtention des informations nécessaires à la réinitialisation du mot de passe de l'utilisateur
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            title: MotDePasseOublieRequest
+            type: object
+            required:
+              - codeOrganisation
+              - username
+            properties:
+              codeOrganisation:
+                type: string
+              username:
+                type: string
+
+      responses:
+        "200":
+          description: Succés
+          schema:
+            title: MotDePasseOublieResponse
+            type: object
+            properties:
+              questions:
+                type: array
+                items:
+                  $ref: '#/definitions/TypeQuestion'
+        "404":
+          description: Organisation ou utilisateur introuvable ou l'utilisateur n'a pas de questions enregistrées
+
+  /auth/majMotDePasse:
+    post:
+      operationId: majMotDePassePost
+      summary: Tentative de mise à jour du mot de passe après réponse aux questions secrètes
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            title: MajMotDePasseRequest
+            type: object
+            properties:
+              password:
+                type: string
+              reponses:
+                type: array
+                items:
+                  $ref: '#/definitions/Reponse'
+
+      responses:
+        "200":
+          description: Succés
+          schema:
+            title: MajMotDePasseResponse
+            type: object
+            properties:
+              contexte:
+                $ref: '#/definitions/Contexte'
+        "400":
+          description: Echec de réponse aux questions secrètes
+          schema:
+            title: MajMotDePasseKoResponse
+            type: object
+            properties:
+              erreurReponses:
+                type: array
+                items:
+                  $ref: '#/definitions/TypeQuestion'
+
+definitions:
+  TypeQuestion:
+    type: string
+    enum:
+      - NOM_JF_MERE
+      - RUE_ENFANT
+      - PLAT_PREFERE
+      - NOM_ANIMAL_COMPAGNIE
+      - NOM_PROFESSEUR_FAVORI
+      - VILLE_PREFEREE
+      - LIVRE_PREFEREE
+      - OEUVRE_ART_PREFEREE
+      - SPORTIF_PREFEREE
+      - AUTEUR_FAVORI
+
+  Reponse:
+    required:
+      - code
+      - reponse
+    properties:
+      code:
+        $ref: '#/definitions/TypeQuestion'
+      reponse:
+        type: string
+
+  Contexte:
+    properties:
+      token:
+        type: string
+      organisations:
+        type: array
+        items:
+          $ref: './commons.yaml#/definitions/Organisation'
+      etablissements:
+        type: array
+        items:
+          $ref: './commons.yaml#/definitions/Etablissement'
