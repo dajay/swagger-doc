@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  title: Novaxium - Contexte
+  title: LINKIAxium - Contexte
   version: "1.0.0"
 host: 127.0.0.1:8080
 basePath: /api
@@ -9,10 +9,10 @@ consumes: [ application/json ]
 produces: [ application/json ]
 
 paths:
-  /contexte/organisation/{codeOrganisation}:
+  /contexte/changerOrganisation/{codeOrganisation}:
     get:
-      operationId: organisationGet
-      summary: Changement d'organisation
+      operationId: changerOrganisation
+      summary: Changer d'organisation
       parameters:
         - in: path
           name: codeOrganisation
@@ -24,14 +24,32 @@ paths:
         "200":
           description: Succés
           schema:
-            title: OrganisationResponse
-            type: object
-            properties:
-              etablissements:
-                type: array
-                items:
-                $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Etablissement'
-        "400":
-          description: Credentials invalides
+            $ref: '#/definitions/ChangerContexteResponse'
         "404":
-          description: Organisation ou utilisateur introuvable
+          description: Organisation inconnue
+
+  /contexte/changerEtablissement/{codeEtablissement}:
+    get:
+      operationId: changerEtablissement
+      summary: Changer d'etablissement
+      parameters:
+        - in: path
+          name: codeEtablissement
+          required: true
+          schema:
+            type: string
+
+      responses:
+        "200":
+          description: Succés
+          schema:
+            $ref: '#/definitions/ChangerContexteResponse'
+        "404":
+          description: Etablissement inconnu
+
+definitions:
+  ChangerContexteResponse:
+    type: object
+    properties:
+      contexte:
+        $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Contexte'

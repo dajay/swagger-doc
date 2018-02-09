@@ -1,0 +1,96 @@
+swagger: "2.0"
+info:
+  title: LINKIAxium - Profil
+  version: "1.0.0"
+host: 127.0.0.1:8080
+basePath: /api
+schemes: [ http, https ]
+consumes: [ application/json ]
+produces: [ application/json ]
+
+paths:
+  /droits-profils/liste:
+    get:
+      security:
+        - bearerAuth: []
+      operationId: lister
+      summary: Liste droits de profils
+
+      responses:
+        "200":
+          description: Succés
+          schema:
+            title: ListerResponse
+            type: object
+            properties:
+              fonctionnalites:
+                type: array
+                items:
+                  $ref: '#/definitions/Fonctionnalite'
+              droitsProfils:
+                type: array
+                items:
+                  $ref: '#/definitions/DroitProfil'
+        "401":
+          description: Credentials invalides
+        "403":
+          description: Vous ne disposez pas des droits nécessaires
+
+  /droits-profils/modifier:
+    post:
+      security:
+        - bearerAuth: []
+      operationId: modifier
+      summary: Modifier les droits des profils
+      parameters:
+        - in: body
+          name: droitsProfils
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/DroitProfil'
+      responses:
+        "200":
+          description: Succés
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/DroitProfil'
+        "400":
+          description: Tentative de modifier un profil inaccessible ou d'affecter une fonctionnalité inaccessible à l'utilisateur connecté
+        "401":
+          description: Credentials invalides
+        "403":
+          description: Vous ne disposez pas des droits nécessaires
+
+definitions:
+  DroitProfil:
+    type: object
+    properties:
+      profil:
+        $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Profil'
+      fonctionnalitesLINKIA:
+        type: array
+        items:
+          $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/enums.yaml#/definitions/FonctionnaliteEnum'
+      fonctionnalitesExternes:
+        type: array
+        items:
+          type: string
+
+  Fonctionnalite:
+    type: object
+    properties:
+      libelle:
+        type: string
+      type:
+        $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/enums.yaml#/definitions/TypeFonctionnaliteEnum'
+      fonctionnaliteLINKIA:
+        $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/enums.yaml#/definitions/FonctionnaliteEnum'
+      fonctionnaliteExterne:
+        type: string
+      children:
+        type: array
+        items:
+          $ref: '#/definitions/Fonctionnalite'

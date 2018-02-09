@@ -1,50 +1,258 @@
 {
-  "posts": [
+
+  "pays": [ { "code": "FR" } ],
+
+  "referentiel-pays": [ { "code": "FR", "type": "type" } ],
+
+  "natures-structure-juridique": [ { "code": "SIEGE_SOCIAL" }, { "code": "ETABLISSEMENT_SECONDAIRE" } ],
+
+  "status-organisation": [
+    { "code": "EN_COURS_CREATION" },
+    { "code": "EN_ATTENTE_ACTIVATION_CLIENT" },
+    { "code": "VALIDEE" }
+  ],
+
+  "types-organisation": [
+    { "code": "ORGANISATION" },
+    { "code": "PLATEFORME" },
+    { "code": "redfroggy" },
+    { "code": "NX" }
+  ],
+
+  "structures-juridique": [
     {
       "id": 1,
-      "title": "Post 1"
-    },
-    {
+      "uuid": "uuid1",
+      "siren": "siren",
+      "siret": "siret",
+      "codeActivite": "codeActivite",
+      "finess": "finess",
+      "tva": "tva",
+      "sepaCreancier": "sepaCreancier",
+      "nomRcs": "nomRcs 1",
+      "adresse": "adresse",
+      "complement": "complement",
+      "zip": "zip",
+      "ville": "ville",
+      "duns": "duns",
+      "tribunalCommerce": "tribunalCommerce",
+      "enseigne": "enseigne",
+      "capital": 0,
+      "formeJuridique": "FR",
+      "structureMere": null,
+      "nature": "SIEGE_SOCIAL",
+      "pays": "FR",
+      "organisation": "OrganisationEntity"
+    },{
       "id": 2,
-      "title": "Post 2"
-    },
-    {
+      "uuid": "uuid2",
+      "siren": "siren",
+      "siret": "siret",
+      "codeActivite": "codeActivite",
+      "finess": "finess",
+      "tva": "tva",
+      "sepaCreancier": "sepaCreancier",
+      "nomRcs": "nomRcs 2",
+      "adresse": "adresse",
+      "complement": "complement",
+      "zip": "zip",
+      "ville": "ville",
+      "duns": "duns",
+      "tribunalCommerce": "tribunalCommerce",
+      "enseigne": "enseigne",
+      "capital": 0,
+      "formeJuridique": "FR",
+      "structureMere": 1,
+      "nature": "ETABLISSEMENT_SECONDAIRE",
+      "pays": "FR",
+      "organisation": "OrganisationEntity"
+    },{
       "id": 3,
-      "title": "Post 3"
+      "uuid": "uuid3",
+      "siren": "siren",
+      "siret": "siret",
+      "codeActivite": "codeActivite",
+      "finess": "finess",
+      "tva": "tva",
+      "sepaCreancier": "sepaCreancier",
+      "nomRcs": "nomRcs 3",
+      "adresse": "adresse",
+      "complement": "complement",
+      "zip": "zip",
+      "ville": "ville",
+      "duns": "duns",
+      "tribunalCommerce": "tribunalCommerce",
+      "enseigne": "enseigne",
+      "capital": 0,
+      "formeJuridique": "FR",
+      "structureMere": 1,
+      "nature": "ETABLISSEMENT_SECONDAIRE",
+      "pays": "FR",
+      "organisation": "OrganisationEntity"
+    },{
+      "id": 4,
+      "uuid": "uuid4",
+      "siren": "siren",
+      "siret": "siret",
+      "codeActivite": "codeActivite",
+      "finess": "finess",
+      "tva": "tva",
+      "sepaCreancier": "sepaCreancier",
+      "nomRcs": "nomRcs 4",
+      "adresse": "adresse",
+      "complement": "complement",
+      "zip": "zip",
+      "ville": "ville",
+      "duns": "duns",
+      "tribunalCommerce": "tribunalCommerce",
+      "enseigne": "enseigne",
+      "capital": 0,
+      "formeJuridique": "FR",
+      "structureMere": 1,
+      "nature": "ETABLISSEMENT_SECONDAIRE",
+      "pays": "FR",
+      "organisation": "OrganisationEntity"
+    },{
+      "id": 5,
+      "uuid": "uuid5",
+      "siren": "siren",
+      "siret": "siret",
+      "codeActivite": "codeActivite",
+      "finess": "finess",
+      "tva": "tva",
+      "sepaCreancier": "sepaCreancier",
+      "nomRcs": "nomRcs 5",
+      "adresse": "adresse",
+      "complement": "complement",
+      "zip": "zip",
+      "ville": "ville",
+      "duns": "duns",
+      "tribunalCommerce": "tribunalCommerce",
+      "enseigne": "enseigne",
+      "capital": 0,
+      "formeJuridique": "FR",
+      "structureMere": 1,
+      "nature": "ETABLISSEMENT_SECONDAIRE",
+      "pays": "FR",
+      "organisation": "OrganisationEntity"
+    },{
+      "id": 6,
+      "uuid": "uuid6",
+      "siren": "siren",
+      "siret": "siret",
+      "codeActivite": "codeActivite",
+      "finess": "finess",
+      "tva": "tva",
+      "sepaCreancier": "sepaCreancier",
+      "nomRcs": "nomRcs 5",
+      "adresse": "adresse",
+      "complement": "complement",
+      "zip": "zip",
+      "ville": "ville",
+      "duns": "duns",
+      "tribunalCommerce": "tribunalCommerce",
+      "enseigne": "enseigne",
+      "capital": 0,
+      "formeJuridique": "FR",
+      "structureMere": 1,
+      "nature": "ETABLISSEMENT_SECONDAIRE",
+      "pays": "FR",
+      "organisation": "OrganisationEntity"
+    },{
+      "id": 7,
+      "uuid": "uuid7",
+      "siren": "siren",
+      "siret": "siret",
+      "codeActivite": "codeActivite",
+      "finess": "finess",
+      "tva": "tva",
+      "sepaCreancier": "sepaCreancier",
+      "nomRcs": "nomRcs 5",
+      "adresse": "adresse",
+      "complement": "complement",
+      "zip": "zip",
+      "ville": "ville",
+      "duns": "duns",
+      "tribunalCommerce": "tribunalCommerce",
+      "enseigne": "enseigne",
+      "capital": 0,
+      "formeJuridique": "FR",
+      "structureMere": 1,
+      "nature": "ETABLISSEMENT_SECONDAIRE",
+      "pays": "FR",
+      "organisation": "OrganisationEntity"
+    },{
+      "id": 8,
+      "uuid": "uuid8",
+      "siren": "siren",
+      "siret": "siret",
+      "codeActivite": "codeActivite",
+      "finess": "finess",
+      "tva": "tva",
+      "sepaCreancier": "sepaCreancier",
+      "nomRcs": "nomRcs 5",
+      "adresse": "adresse",
+      "complement": "complement",
+      "zip": "zip",
+      "ville": "ville",
+      "duns": "duns",
+      "tribunalCommerce": "tribunalCommerce",
+      "enseigne": "enseigne",
+      "capital": 0,
+      "formeJuridique": "FR",
+      "structureMere": 1,
+      "nature": "ETABLISSEMENT_SECONDAIRE",
+      "pays": "FR",
+      "organisation": "OrganisationEntity"
+    },{
+      "id": 9,
+      "uuid": "uuid9",
+      "siren": "siren",
+      "siret": "siret",
+      "codeActivite": "codeActivite",
+      "finess": "finess",
+      "tva": "tva",
+      "sepaCreancier": "sepaCreancier",
+      "nomRcs": "nomRcs 5",
+      "adresse": "adresse",
+      "complement": "complement",
+      "zip": "zip",
+      "ville": "ville",
+      "duns": "duns",
+      "tribunalCommerce": "tribunalCommerce",
+      "enseigne": "enseigne",
+      "capital": 0,
+      "formeJuridique": "FR",
+      "structureMere": 1,
+      "nature": "ETABLISSEMENT_SECONDAIRE",
+      "pays": "FR",
+      "organisation": "OrganisationEntity"
     }
   ],
-  "comments": [
+
+  "organisations": [
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "code": "ORGA1",
+      "nom": "nom",
+      "status": "VALIDEE",
+      "adresse": "adresse",
+      "complement": "complement",
+      "zip": "zip",
+      "ville": "ville",
+      "type": "ORGANISATION",
+      "pays": "FR"
     },
     {
-      "id": 2,
-      "body": "some comment",
-      "postId": 1
+      "code": "ORGA2",
+      "nom": "nom",
+      "status": "VALIDEE",
+      "adresse": "adresse",
+      "complement": "complement",
+      "zip": "zip",
+      "ville": "ville",
+      "type": "ORGANISATION",
+      "pays": "FR"
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  },
-  "identifier" :
-  {
-    "contexte": {
-      "token": "string",
-      "organisations": [
-        {
-          "code": "string",
-          "nom": "string"
-        }
-      ],
-      "etablissements": [
-        {
-          "code": "string",
-          "nom": "string"
-        }
-      ]
-    },
-    "codeRetour": "OK"
-  }
+  ]
+
 }

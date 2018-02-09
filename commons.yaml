@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  title: Novaxium - Commons
+  title: LINKIAxium - Commons
   version: "1.0.0"
 
 # Hack pour la génération MAVEN
@@ -8,6 +8,27 @@ paths:
   /dummy:
 
 definitions:
+  Contexte:
+    properties:
+      token:
+        type: string
+      organisationCourante:
+        type: string
+      etablissementCourant:
+        type: string
+      organisations:
+        type: array
+        items:
+          $ref: '#/definitions/Organisation'
+      etablissements:
+        type: array
+        items:
+          $ref: '#/definitions/Etablissement'
+      fonctionnalites:
+        type: array
+        items:
+          type: string
+
   Organisation:
     properties:
       code:
@@ -21,3 +42,38 @@ definitions:
         type: string
       nom:
         type: string
+
+  Pays:
+    properties:
+      id:
+        type: string
+      nom:
+        type: string
+
+  Profil:
+    type: object
+    required:
+    - uuid
+    - code
+    - libelle
+    - description
+    properties:
+      uuid:
+        type: string
+        format: uuid
+      code:
+        type: string
+      libelle:
+        type: string
+      description:
+        type: string
+      suppressionAutorisee:
+        type: boolean
+      type:
+        $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/enums.yaml#/definitions/TypeFonctionnaliteEnum'
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

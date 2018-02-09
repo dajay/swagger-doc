@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  title: Novaxium - Authentification
+  title: LINKIAxium - Authentification
   version: "1.0.0"
 host: 127.0.0.1:8080
 basePath: /api
@@ -15,7 +15,7 @@ paths:
       summary: Tentative d'identification d'un utilisateur à partir de ses credentials
       parameters:
         - in: body
-          name: body
+          name: request
           required: true
           schema:
             title: IdentifierRequest
@@ -40,7 +40,7 @@ paths:
             type: object
             properties:
               contexte:
-                $ref: '#/definitions/Contexte'
+                $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Contexte'
               codeRetour:
                 type: string
                 enum:
@@ -57,7 +57,7 @@ paths:
       summary: Obtention des informations nécessaires à la réinitialisation du mot de passe de l'utilisateur
       parameters:
         - in: body
-          name: body
+          name: request
           required: true
           schema:
             title: MotDePasseOublieRequest
@@ -81,7 +81,7 @@ paths:
               questions:
                 type: array
                 items:
-                  $ref: '#/definitions/TypeQuestion'
+                  $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/enums.yaml#/definitions/QuestionSecreteEnum'
         "404":
           description: Organisation ou utilisateur introuvable ou l'utilisateur n'a pas de questions enregistrées
 
@@ -91,12 +91,20 @@ paths:
       summary: Tentative de mise à jour du mot de passe après réponse aux questions secrètes
       parameters:
         - in: body
-          name: body
+          name: request
           required: true
           schema:
             title: MajMotDePasseRequest
             type: object
+            required:
+              - codeOrganisation
+              - username
+              - password
             properties:
+              codeOrganisation:
+                type: string
+              username:
+                type: string
               password:
                 type: string
               reponses:
@@ -106,13 +114,13 @@ paths:
 
       responses:
         "200":
-          description: Succés
+          description: Succès
           schema:
             title: MajMotDePasseResponse
             type: object
             properties:
               contexte:
-                $ref: '#/definitions/Contexte'
+                $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Contexte'
         "400":
           description: Echec de réponse aux questions secrètes
           schema:
@@ -122,42 +130,15 @@ paths:
               erreurReponses:
                 type: array
                 items:
-                  $ref: '#/definitions/TypeQuestion'
+                  $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/enums.yaml#/definitions/QuestionSecreteEnum'
 
 definitions:
-  TypeQuestion:
-    type: string
-    enum:
-      - NOM_JF_MERE
-      - RUE_ENFANT
-      - PLAT_PREFERE
-      - NOM_ANIMAL_COMPAGNIE
-      - NOM_PROFESSEUR_FAVORI
-      - VILLE_PREFEREE
-      - LIVRE_PREFEREE
-      - OEUVRE_ART_PREFEREE
-      - SPORTIF_PREFEREE
-      - AUTEUR_FAVORI
-
   Reponse:
     required:
       - code
       - reponse
     properties:
       code:
-        $ref: '#/definitions/TypeQuestion'
+        $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/enums.yaml#/definitions/QuestionSecreteEnum'
       reponse:
         type: string
-
-  Contexte:
-    properties:
-      token:
-        type: string
-      organisations:
-        type: array
-        items:
-          $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Organisation'
-      etablissements:
-        type: array
-        items:
-          $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Etablissement'
