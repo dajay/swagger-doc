@@ -30,21 +30,6 @@
   },
   "auth/identifier" :
   {
-    "contexte": {
-      "token": "string",
-      "organisations": [
-        {
-          "code": "string",
-          "nom": "string"
-        }
-      ],
-      "etablissements": [
-        {
-          "code": "string",
-          "nom": "string"
-        }
-      ]
-    },
     "codeRetour": "OK"
   }
 }
