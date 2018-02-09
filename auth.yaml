@@ -156,8 +156,8 @@ definitions:
       organisations:
         type: array
         items:
-          $ref: './commons.yaml#/definitions/Organisation'
+          $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Organisation'
       etablissements:
         type: array
         items:
-          $ref: './commons.yaml#/definitions/Etablissement'
+          $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Etablissement'
