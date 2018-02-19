@@ -134,7 +134,7 @@ definitions:
     - description
     properties:
       type:
-        $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/enums.yaml/#/definitions/TypeArbreRoleEnum'
+        $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/enums.yaml#/definitions/TypeArbreRoleEnum'
       code:
         type: string
       uuid:
