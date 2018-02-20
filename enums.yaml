@@ -1,16 +1,16 @@
 swagger: "2.0"
 info:
-  title: LINKIAxium - Enums communes au modele JPA
+  title: Novaxium - Enums communes au modele JPA
   version: "1.0.0"
 
-# Les enums décrites dans ce fichier sont le mirroir de celles du modele jpa (LINKIA-entities / fr.redfroggy.LINKIAs5.model.**Enum)
+# Les enums décrites dans ce fichier sont le mirroir de celles du modele jpa (nova-entities / fr.oppido.novas5.model.**Enum)
 
 # Hack pour la génération MAVEN
 paths:
   /dummy:
 
 definitions:
-  # fr.redfroggy.LINKIAs5.model.core.enums.FonctionnaliteEnum
+  # fr.oppido.novas5.model.core.enums.FonctionnaliteEnum
   FonctionnaliteEnum:
     type: string
     enum:
@@ -155,7 +155,14 @@ definitions:
       - TFONC1
       - TFONC2
 
-  # fr.redfroggy.LINKIAs5.model.core.enums.QuestionSecreteEnum
+  # fr.oppido.novas5.model.core.enums.NatureStructureJuridiqueEnum
+  NatureStructureJuridiqueEnum:
+    type: string
+    enum:
+      - SIEGE_SOCIAL
+      - ETABLISSEMENT_SECONDAIRE
+
+  # fr.oppido.novas5.model.core.enums.QuestionSecreteEnum
   QuestionSecreteEnum:
     type: string
     enum:
@@ -170,19 +177,36 @@ definitions:
       - SPORTIF_PREFEREE
       - AUTEUR_FAVORI
 
-  # fr.redfroggy.LINKIAs5.model.core.enums.TypeArbreRoleEnum
+  # fr.oppido.novas5.model.core.enums.TypeArbreRoleEnum
   TypeArbreRoleEnum:
     type: string
     enum:
       - GROUPE
       - ETABLISSEMENT
 
-  # fr.redfroggy.LINKIAs5.model.core.enums.TypeFonctionnaliteEnum
+  # fr.oppido.novas5.model.core.enums.StatusOrganisationEnum
+  StatusOrganisationEnum:
+    type: string
+    enum:
+      - EN_COURS_CREATION
+      - EN_ATTENTE_ACTIVATION_CLIENT
+      - VALIDEE
+
+  # fr.oppido.novas5.model.core.enums.TypeFonctionnaliteEnum
   TypeFonctionnaliteEnum:
     type: string
     enum:
       - UTILISATEUR
       - ADMIN_ORGANISATION
       - ADMIN_PLATEFORME
-      - ADMIN_redfroggy
+      - ADMIN_OPPIDO
       - ADMIN_NX
+
+  # fr.oppido.novas5.model.core.enums.TypeOrganisationEnum
+  TypeOrganisationEnum:
+    type: string
+    enum:
+      - ORGANISATION
+      - PLATEFORME
+      - OPPIDO
+      - NX

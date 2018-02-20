@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  title: LINKIAxium - Authentification
+  title: Novaxium - Authentification
   version: "1.0.0"
 host: 127.0.0.1:8080
 basePath: /api
@@ -11,7 +11,7 @@ produces: [ application/json ]
 paths:
   /auth/identifier:
     post:
-      operationId: identifierPost
+      operationId: identifier
       summary: Tentative d'identification d'un utilisateur à partir de ses credentials
       parameters:
         - in: body
@@ -40,7 +40,7 @@ paths:
             type: object
             properties:
               contexte:
-                $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Contexte'
+                $ref: '#/definitions/Contexte'
               codeRetour:
                 type: string
                 enum:
@@ -53,7 +53,7 @@ paths:
 
   /auth/motDePasseOublie:
     post:
-      operationId: motDePasseOubliePost
+      operationId: motDePasseOublie
       summary: Obtention des informations nécessaires à la réinitialisation du mot de passe de l'utilisateur
       parameters:
         - in: body
@@ -87,7 +87,7 @@ paths:
 
   /auth/majMotDePasse:
     post:
-      operationId: majMotDePassePost
+      operationId: majMotDePasse
       summary: Tentative de mise à jour du mot de passe après réponse aux questions secrètes
       parameters:
         - in: body
@@ -124,13 +124,9 @@ paths:
         "400":
           description: Echec de réponse aux questions secrètes
           schema:
-            title: MajMotDePasseKoResponse
-            type: object
-            properties:
-              erreurReponses:
-                type: array
-                items:
-                  $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/enums.yaml#/definitions/QuestionSecreteEnum'
+            type: array
+            items:
+              $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Erreur'
 
 definitions:
   Reponse:

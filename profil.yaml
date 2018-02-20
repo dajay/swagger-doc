@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  title: LINKIAxium - Profil
+  title: Novaxium - Profil
   version: "1.0.0"
 host: 127.0.0.1:8080
 basePath: /api

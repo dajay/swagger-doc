@@ -1,0 +1,160 @@
+swagger: "2.0"
+info:
+  title: Novaxium - Organisations
+  version: "1.0.0"
+host: 127.0.0.1:8080
+basePath: /api
+schemes: [ http, https ]
+consumes: [ application/json ]
+produces: [ application/json ]
+
+paths:
+  /organisation/liste:
+    get:
+      security:
+        - bearerAuth: []
+      operationId: lister
+      summary: Liste des organisations
+
+      responses:
+        "200":
+          description: Succés
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/OrganisationSimple'
+
+        "401":
+          description: Credentials invalides
+        "404":
+          description: Organisation ou utilisateur introuvable
+
+  /organisation/consulter/{uuid}:
+    get:
+      security:
+        - bearerAuth: []
+      operationId: consulter
+      summary: Consulter une organisation
+
+      parameters:
+        - in: path
+          name: uuid
+          required: true
+          schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: Succés
+          schema:
+            $ref: '#/definitions/OrganisationComplete'
+
+  /organisation/creer:
+    put:
+      security:
+        - bearerAuth: []
+      operationId: creer
+      summary: Création d'une organisation
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/OrganisationComplete'
+      responses:
+        "200":
+          description: Succés
+          schema:
+            $ref: '#/definitions/OrganisationComplete'
+        "401":
+          description: Credentials invalides
+        "403":
+          description: Vous ne disposez pas des droits nécessaires
+        "404":
+          description: Aucune organisation pour le code
+
+  /organisation/modifier:
+    post:
+      security:
+        - bearerAuth: []
+      operationId: modifier
+      summary: Modification d'une organisation
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/OrganisationComplete'
+      responses:
+        "200":
+          description: Succés
+          schema:
+            $ref: '#/definitions/OrganisationComplete'
+        "401":
+          description: Credentials invalides
+        "403":
+          description: Vous ne disposez pas des droits nécessaires
+        "404":
+          description: Aucune organisation pour le code
+
+  /organisation/supprimer/{uuid}:
+    delete:
+      security:
+        - bearerAuth: []
+      operationId: supprimer
+      summary: Supprimer une organisation
+      parameters:
+        - in: path
+          name: uuid
+          required: true
+          type: string
+          format: uuid
+
+      responses:
+        "200":
+          description: Succés
+        "401":
+          description: Credentials invalides
+        "403":
+          description: Vous ne disposez pas des droits nécessaires
+        "404":
+          description: Aucune organisation pour l'uuid
+
+definitions:
+  OrganisationSimple:
+    type: object
+    required:
+      - nom
+      - code
+    properties:
+      uuid:
+        type: string
+        format: uuid
+      nom:
+        type: string
+      code:
+        type: string
+      codePays:
+        type: string
+      nombreEtablissements:
+        type: integer
+      paysUuid:
+        type: string
+        format: uuid
+      status:
+        $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/enums.yaml#/definitions/StatusOrganisationEnum'
+  OrganisationComplete:
+    allOf:
+      - $ref: '#/definitions/OrganisationSimple'
+      - type: object
+        required:
+          - type
+          - adresse
+        properties:
+          type:
+            $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/enums.yaml#/definitions/TypeOrganisationEnum'
+          logo:
+            type: string
+            format: uuid
+          adresse:
+            $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Adresse'

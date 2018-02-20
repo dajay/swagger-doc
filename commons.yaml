@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  title: LINKIAxium - Commons
+  title: Novaxium - Commons
   version: "1.0.0"
 
 # Hack pour la génération MAVEN
@@ -8,6 +8,16 @@ paths:
   /dummy:
 
 definitions:
+
+  Erreur:
+    required:
+      - code
+    properties:
+      champ:
+        type: string
+      code:
+        $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/erreurs.yaml#/definitions/ErreurFonctionnelleEnum'
+
   Contexte:
     properties:
       token:
@@ -71,6 +81,22 @@ definitions:
         type: boolean
       type:
         $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/enums.yaml#/definitions/TypeFonctionnaliteEnum'
+
+  Adresse:
+    type: object
+    required:
+      - adresse
+      - zip
+      - ville
+    properties:
+      adresse:
+        type: string
+      complement:
+        type: string
+      zip:
+        type: string
+      ville:
+        type: string
 
   securitySchemes:
     bearerAuth:

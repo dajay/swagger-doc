@@ -1,0 +1,73 @@
+swagger: "2.0"
+info:
+  title: Novaxium - WebService
+  version: "1.0.0"
+host: 127.0.0.1:8080
+basePath: /api/admin
+schemes: [ http, https ]
+consumes: [ application/json ]
+produces: [ application/json ]
+
+paths:
+  /web-service/lister:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Lister les WebServices
+      operationId: lister
+      responses:
+        "200":
+          description: Succès
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/WebServiceCatalogue'
+        "401":
+          description: Credentials invalides
+        "403":
+          description: Vous ne disposez pas des droits nécessaires
+
+  /web-service/consulter/{uuid}:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Consulter les détails d'un WebServices
+      operationId: consulter
+      parameters:
+        - in: path
+          name: uuid
+          type: string
+          format: uuid
+          required: true
+          description: UUID du WebService
+      responses:
+        "200":
+          description: Succès
+          schema:
+            $ref: '#/definitions/WebServiceCatalogue'
+        "401":
+          description: Credentials invalides
+        "403":
+          description: Vous ne disposez pas des droits nécessaires
+        "404":
+          description: WebService introuvable
+
+definitions:
+  WebServiceCatalogue:
+    type:
+    required:
+      - uuid
+    properties:
+      uuid:
+        type: string
+        format: uuid
+      libelle:
+        type: string
+      description:
+        type: string
+      url:
+        type: string
+      methode:
+        type: string
+      perimetreExterne:
+        type: boolean

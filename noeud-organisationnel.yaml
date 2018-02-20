@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  title: Novaxium - Rôles
+  title: Novaxium - Noeuds organisationnels
   version: "1.0.0"
 host: 127.0.0.1:8080
 basePath: /api/admin
@@ -9,124 +9,116 @@ consumes: [ application/json ]
 produces: [ application/json ]
 
 paths:
-  /role/lister/{arbreUuid}:
+  /noeud-organisationnel/lister/{arbreUuid}:
     get:
       security:
         - bearerAuth: []
       operationId: lister
-      summary: Liste des rôles de l'arbre de rôles
+      summary: Liste des noeuds de l'arbres organisationnel
       parameters:
         - in: path
           name: arbreUuid
           format: uuid
           type: string
           required: true
-          description: Uuid de l'arbre de rôles
+          description: Uuid de l'arbre organisationnel
       responses:
         "200":
-          description: Succès
+          description: Succés
           schema:
             type: array
             items:
-              $ref: '#/definitions/Role'
+              $ref: '#/definitions/NoeudOrganisationnel'
         "400":
-          description: Bad request response
+          description: Bad Request
         "401":
           description: Credentials invalides
         "403":
           description: Vous ne disposez pas des droits nécessaires
         "404":
-          description: L'arbre rôles n'existe pas
+          description: Arbre introuvable
 
-  /role/consulter/{uuid}:
+  /noeud-organisationnel/consulter/{uuid}:
     get:
       security:
         - bearerAuth: []
       operationId: consulter
       parameters:
         - in: path
-          name: uuid
-          format: uuid
           type: string
+          format: uuid
+          description: Uuid du noeud organisationnel
           required: true
-          description: Uuid du rôle
+          name: uuid
+      summary: Consulter un noeud organisationnel
       responses:
         "200":
           description: Succès
           schema:
-            $ref: '#/definitions/Role'
-        "400":
-          description: Bad request response
-        "401":
-          description: Credentials invalides
-        "404":
-          description: Le rôle n'existe pas
-
-  /role/creer:
-    put:
-      security:
-        - bearerAuth: []
-      operationId: creer
-      summary: Creer un role
-      parameters:
-        - in: body
-          name: role
-          schema:
-            $ref: '#/definitions/Role'
-          description: Le rôle à créer.
-      responses:
-        "200":
-          description: succès
-          schema:
-            $ref: '#/definitions/Role'
-        "400":
-          description: Ce role n'est pas modifiable
+            $ref: '#/definitions/NoeudOrganisationnel'
         "401":
           description: Credentials invalides
         "403":
           description: Vous ne disposez pas des droits nécessaires
-        "409":
-          description: Un role existe déjà avec le même code
+        "404":
+          description: Le noeud organisationnel n'existe pas
 
-  /role/modifier:
+
+  /noeud-organisationnel/creer:
+    put:
+      security:
+        - bearerAuth: []
+      summary: Créer un nouveau noeud organisationnel
+      operationId: creer
+      parameters:
+        - in: body
+          name: noeud
+          schema:
+            $ref: '#/definitions/NoeudOrganisationnel'
+      responses:
+        "200":
+          description: Succès
+          schema:
+            $ref: '#/definitions/NoeudOrganisationnel'
+        "401":
+          description: Credentials invalides
+        "403":
+          description: Vous ne disposez pas des droits nécessaires
+
+  /noeud-organisationnel/modifier:
     post:
       security:
         - bearerAuth: []
       operationId: modifier
-      summary: Modifier un rôle
+      summary: Modifier un noeud organisationnel
       parameters:
         - in: body
-          name: role
+          name: noeud
           schema:
-            $ref: '#/definitions/Role'
-          description: le rôle à modifier
+            $ref: '#/definitions/NoeudOrganisationnel'
       responses:
         "200":
           description: Succès
           schema:
-            $ref: '#/definitions/Role'
-        "400":
-          description: Ce rôle n'est pas modifiable
+            $ref: '#/definitions/NoeudOrganisationnel'
         "401":
           description: Credentials invalides
         "403":
           description: Vous ne disposez pas des droits nécessaires
         "404":
-          description: Aucun rôle pour le code
+          description: Le noeud organisationnel n'existe pas
 
-  /role/supprimer/{uuid}:
+  /noeud-organisationnel/supprimer/{uuid}:
     delete:
-      security:
-        - bearerAuth: []
-      summary: Supprimer un rôle
+      summary: Supprimer l'arbre organisationnel
       operationId: supprimer
       parameters:
         - in: path
-          name: uuid
-          format: uuid
-          type: string
           required: true
-          description: Uuid du rôle
+          type: string
+          format: uuid
+          name: uuid
+          description: Uuid de l'arbre organisationnel
       responses:
         "200":
           description: Succès
@@ -135,72 +127,67 @@ paths:
         "403":
           description: Vous ne disposez pas des droits nécessaires
         "404":
-          description: Le rôle n'existe pas
+          description: Le noeud n'existe pas
 
-  /role/modifier-parents:
+  /noeud-organisationnel/modifier-parents:
     post:
       security:
         - bearerAuth: []
       operationId: modifierParents
-      summary: Sauvegarder la liste des rôle d'un arbre
+      summary: Sauvegarder la liste des noeuds d'un arbre organisationnel
       parameters:
         - in: body
-          name: roles
+          name: noeuds
           required: true
           schema:
             type: array
             items:
-              $ref: '#/definitions/Role'
-          description: La liste des rôles à modifier
+              $ref: '#/definitions/NoeudOrganisationnel'
+          description: La liste des noeuds organisationnels à modifier
       responses:
         "200":
           description: succès
           schema:
             type: array
             items:
-              $ref: '#/definitions/Role'
-        "400":
-          description: La liste n'est pas modifiable
+              $ref: '#/definitions/NoeudOrganisationnel'
         "401":
           description: Credentials invalides
         "403":
           description: Vous ne disposez pas des droits nécessaires
-        "404":
-          description: La liste n'existe pas
 
 definitions:
-  Role:
+  NoeudOrganisationnel:
     type: object
     required:
-    - arbreRoleUuid
-    - profilUuid
     - uuid
-    - code
     - libelle
     - description
+    - arbreOrganisationnelUuid
+    - children
     properties:
-      libelle:
-        type: string
-      code:
-        type: string
       uuid:
         type: string
         format: uuid
+      libelle:
+        type: string
       description:
         type: string
-      profilUuid:
-        type: string
-        format: uuid
-      administration:
-        type: boolean
-        default: false
-      rolesAutorises:
-        type: array
-        items:
-          $ref: '#/definitions/Role'
       parentUuid:
         type: string
         format: uuid
-      arbreRoleUuid:
+      children:
+        type: array
+        items:
+          $ref: '#/definitions/NoeudOrganisationnel'
+      etablissementUuid:
         type: string
         format: uuid
+      arbreOrganisationnelUuid:
+        type: string
+        format: uuid
+      typeUuid:
+        type: string
+        format: uuid
+      supprimable:
+        type: boolean

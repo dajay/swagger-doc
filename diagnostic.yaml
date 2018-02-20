@@ -1,0 +1,103 @@
+swagger: "2.0"
+info:
+  title: Novaxium - Informations de diagnostic
+  version: "1.0.0"
+host: 127.0.0.1:8080
+basePath: /api
+schemes: [ http, https ]
+consumes: [ application/json ]
+produces: [ application/json ]
+
+paths:
+  /diagnostic/liste:
+    get:
+      security:
+        - bearerAuth: []
+      operationId: lister
+      summary: Liste des informations de diagnostic
+      parameters:
+        - in: query
+          name: page
+          description: Page désirée
+          type: integer
+          required: true
+
+      responses:
+        "200":
+          description: Succés
+          schema:
+            title: ListerResponse
+            type: object
+            properties:
+              total:
+                type: integer
+
+              resultat:
+                type: array
+                items:
+                  $ref: '#/definitions/Diagnostic'
+        "400":
+          description: Credentials invalides
+
+  /diagnostic/consulter/{uuid}:
+    get:
+      security:
+        - bearerAuth: []
+      operationId: consulter
+      summary: Consulter une information de diagnostic
+      parameters:
+        - in: path
+          name: uuid
+          format: uuid
+          type: string
+          required: true
+
+      responses:
+        "200":
+          description: Succés
+          schema:
+            $ref: '#/definitions/Diagnostic'
+        "401":
+          description: Credentials invalides
+        "404":
+          description: Non trouvé
+
+definitions:
+  Diagnostic:
+    type: object
+    properties:
+      uuid:
+        type: string
+        format: uuid
+      stacktrace:
+        type: string
+      dateOccurence:
+        type: string
+        format: 'date-time'
+      className:
+        type: string
+      message:
+        type: string
+      requestUri:
+        type: string
+      requestMethod:
+        type: string
+      sessionId:
+        type: string
+      utilisateur:
+        type: object
+        properties:
+          uuid:
+            type: string
+            format: uuid
+          username:
+            type: string
+          organisation:
+            type: object
+            properties:
+              uuid:
+                type: string
+                format: uuid
+              code:
+                type: string
+

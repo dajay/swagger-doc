@@ -1,0 +1,25 @@
+swagger: "2.0"
+info:
+  title: Novaxium - Erreurs fonctionnelles
+  version: "1.0.0"
+
+# Hack pour la génération MAVEN
+paths:
+  /dummy:
+
+definitions:
+  # fr.oppido.novas5.ui.enums.ErreurFonctionnelleEnum
+  ErreurFonctionnelleEnum:
+    type: string
+    enum:
+      - AUTH__REPONSE_INCORRECTE
+      - NOEUD_ORGANISATIONNEL__ARBRE_INTROUVABLE
+      - NOEUD_ORGANISATIONNEL__PARENT_INTROUVABLE
+      - NOEUD_ORGANISATIONNEL__TYPE_INTROUVABLE
+      - NOEUD_ORGANISATIONNEL__ETABLISSEMENT_INTROUVABLE
+      - NOEUD_ORGANISATIONNEL__PARENT_ARBRE_DIFFERENT
+      - ARBRE_ORGANISATIONNEL__AUTRE_REFERENTIEL_AUTORISATION_EXISTANT
+      - ARBRE_ORGANISATIONNEL__INTERVALE_DATES_INVALIDE
+      - ARBRE_ROLES__TYPE_INCONNU
+      - STRUCTURE_JURIDIQUE__SIREN_DOUBLON
+      - STRUCTURE_JURIDIQUE__SIRET_DOUBLON

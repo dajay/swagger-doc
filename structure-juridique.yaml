@@ -1,0 +1,207 @@
+swagger: "2.0"
+info:
+  title: Novaxium - Structures Juridiques
+  version: "1.0.0"
+host: 127.0.0.1:8080
+basePath: /api/admin
+schemes: [ http, https ]
+consumes: [ application/json ]
+produces: [ application/json ]
+
+paths:
+  /structure_juridique/lister:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Liste des Structures Juridiques
+      operationId: lister
+      parameters:
+        - in: query
+          name: paysUuid
+          type: string
+          format: uuid
+          description: Uuid pour lister par pays
+      responses:
+        "200":
+          description: Succès
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/StructureJuridique'
+        "401":
+          description: Credentials invalides
+        "403":
+          description: Vous ne disposez pas des droits nécessaires
+        "404":
+          description: Pays introuvable
+
+  /structure_juridique/consulter/{uuid}:
+    get:
+      security:
+        - bearerAuth: []
+      summary: Consulter la Structure Juridique
+      operationId: consulter
+      parameters:
+        - in: path
+          name: uuid
+          type: string
+          format: uuid
+          required: true
+          description: UUID de la Structure Juridique
+      responses:
+        "200":
+          description: Succès
+          schema:
+            $ref: '#/definitions/StructureJuridique'
+        "401":
+          description: Credentials invalides
+        "403":
+          description: Vous ne disposez pas des droits nécessaires
+        "404":
+          description: Structure Juridique introuvable
+
+  /structure_juridique/creer:
+    put:
+      security:
+        - bearerAuth: []
+      summary: Creer une Structure Juridique
+      operationId: creer
+      parameters:
+        - in: body
+          name: structure
+          schema:
+            $ref: '#/definitions/StructureJuridique'
+          description: Structure Juridique à creer
+      responses:
+        "200":
+          description: Succès
+          schema:
+            $ref: '#/definitions/StructureJuridique'
+        "401":
+          description: Credentials invalides
+        "403":
+          description: Vous ne disposez pas des droits nécessaires
+        "409":
+          description: La Structure Juridique existe déjà
+
+  /structure_juridique/modifier:
+    post:
+      security:
+        - bearerAuth: []
+      summary: Modifier une Structure Juridique
+      operationId: modifier
+      parameters:
+        - in: body
+          name: structure
+          schema:
+            $ref: '#/definitions/StructureJuridique'
+          description: Structure Juridique à modifier
+      responses:
+        "200":
+          description: Succès
+          schema:
+            $ref: '#/definitions/StructureJuridique'
+        "401":
+          description: Credentials invalides
+        "403":
+          description: Vous ne disposez pas des droits nécessaires
+        "404":
+          description: Structure Juridique introuvable
+        "409":
+          description: Conflit avec un Structure Juridique existante
+
+  /structure_juridique/supprimer/{uuid}:
+    delete:
+      security:
+        - bearerAuth: []
+      summary: Suppression de la Structure Juridique
+      operationId: supprimer
+      parameters:
+        - in: path
+          name: uuid
+          type: string
+          format: uuid
+          required: true
+      responses:
+        "200":
+          description: Succès
+        "401":
+          description: Credentials invalides
+        "403":
+          description: Vous ne disposez pas des droits nécessaires
+        "404":
+          description: Structure Juridique introuvable
+
+definitions:
+  StructureJuridique:
+    type: object
+    required:
+      - uuid
+      - paysUuid
+      - nature
+      - formeJuridiqueId
+      - capital
+      - nomRcs
+      - tribunalCommerce
+      - adresse
+      - zip
+      - ville
+      - codeActivite
+    properties:
+      uuid:
+        type: string
+        format: uuid
+      paysUuid:
+        type: string
+        format: uuid
+      nature:
+        $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/enums.yaml#/definitions/NatureStructureJuridiqueEnum'
+      structureMereUuid:
+        type: string
+        format: uuid
+      formeJuridiqueUuid:
+        type: string
+        format: uuid
+      capital:
+        type: integer
+      nomRcs:
+        type: string
+        maxLength: 80
+      enseigne:
+        type: string
+        maxLength: 80
+      tribunalCommerce:
+        type: string
+        maxLength: 80
+      siren:
+        type: string
+        pattern: ^[0-9]{3}\s[0-9]{3}\s[0-9]{3}$
+      siret:
+        type: string
+        pattern: ^[0-9]{3}\s[0-9]{3}\s[0-9]{3}\s[0-9]{5}$
+      duns:
+        type: string
+        pattern: ^([0-9]{3}\s[0-9]{3}\s[0-9]{3})?$
+      adresse:
+        type: string
+        maxLength: 80
+      complement:
+        type: string
+        maxLength: 80
+      zip:
+        type: string
+        pattern: ^([0-9]+)?$
+      ville:
+        type: string
+        maxLength: 80
+      codeActivite:
+        type: string
+      finess:
+        type: string
+        pattern: ^([0-9]{3}\s[0-9]{3}\s[0-9]{3})?$
+      tva:
+        type: string
+        pattern: ^([A-Z]{2}[0-9]{2}\s[0-9]{3}\s[0-9]{3}\s[0-9]{3})?$
+      sepaCreancier:
+        type: string
+        pattern: ^([0-9]{3}\s[0-9]{3}\s[0-9]{3}\s[0-9]{3}\s[0-9])?$
