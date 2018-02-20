@@ -9,7 +9,7 @@ consumes: [ application/json ]
 produces: [ application/json ]
 
 paths:
-  /organisation/liste:
+  /organisation:
     get:
       security:
         - bearerAuth: []
@@ -22,14 +22,60 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/OrganisationSimple'
+              $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Organisation'
 
         "401":
           description: Credentials invalides
         "404":
           description: Organisation ou utilisateur introuvable
 
-  /organisation/consulter/{uuid}:
+    post:
+      security:
+        - bearerAuth: []
+      operationId: creer
+      summary: Création d'une organisation
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Organisation'
+      responses:
+        "200":
+          description: Succés
+          schema:
+            $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Organisation'
+        "401":
+          description: Credentials invalides
+        "403":
+          description: Vous ne disposez pas des droits nécessaires
+        "404":
+          description: Aucune organisation pour le code
+
+    put:
+      security:
+        - bearerAuth: []
+      operationId: modifier
+      summary: Modification d'une organisation
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Organisation'
+      responses:
+        "200":
+          description: Succés
+          schema:
+            $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Organisation'
+        "401":
+          description: Credentials invalides
+        "403":
+          description: Vous ne disposez pas des droits nécessaires
+        "404":
+          description: Aucune organisation pour le code
+
+  /organisation/{uuid}:
     get:
       security:
         - bearerAuth: []
@@ -47,57 +93,7 @@ paths:
         "200":
           description: Succés
           schema:
-            $ref: '#/definitions/OrganisationComplete'
-
-  /organisation/creer:
-    put:
-      security:
-        - bearerAuth: []
-      operationId: creer
-      summary: Création d'une organisation
-      parameters:
-        - in: body
-          name: body
-          required: true
-          schema:
-            $ref: '#/definitions/OrganisationComplete'
-      responses:
-        "200":
-          description: Succés
-          schema:
-            $ref: '#/definitions/OrganisationComplete'
-        "401":
-          description: Credentials invalides
-        "403":
-          description: Vous ne disposez pas des droits nécessaires
-        "404":
-          description: Aucune organisation pour le code
-
-  /organisation/modifier:
-    post:
-      security:
-        - bearerAuth: []
-      operationId: modifier
-      summary: Modification d'une organisation
-      parameters:
-        - in: body
-          name: body
-          required: true
-          schema:
-            $ref: '#/definitions/OrganisationComplete'
-      responses:
-        "200":
-          description: Succés
-          schema:
-            $ref: '#/definitions/OrganisationComplete'
-        "401":
-          description: Credentials invalides
-        "403":
-          description: Vous ne disposez pas des droits nécessaires
-        "404":
-          description: Aucune organisation pour le code
-
-  /organisation/supprimer/{uuid}:
+            $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Organisation'
     delete:
       security:
         - bearerAuth: []
@@ -119,42 +115,3 @@ paths:
           description: Vous ne disposez pas des droits nécessaires
         "404":
           description: Aucune organisation pour l'uuid
-
-definitions:
-  OrganisationSimple:
-    type: object
-    required:
-      - nom
-      - code
-    properties:
-      uuid:
-        type: string
-        format: uuid
-      nom:
-        type: string
-      code:
-        type: string
-      codePays:
-        type: string
-      nombreEtablissements:
-        type: integer
-      paysUuid:
-        type: string
-        format: uuid
-      status:
-        $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/enums.yaml#/definitions/StatusOrganisationEnum'
-  OrganisationComplete:
-    allOf:
-      - $ref: '#/definitions/OrganisationSimple'
-      - type: object
-        required:
-          - type
-          - adresse
-        properties:
-          type:
-            $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/enums.yaml#/definitions/TypeOrganisationEnum'
-          logo:
-            type: string
-            format: uuid
-          adresse:
-            $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Adresse'

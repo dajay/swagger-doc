@@ -9,7 +9,7 @@ consumes: [ application/json ]
 produces: [ application/json ]
 
 paths:
-  /droits-profils/liste:
+  /droits-profils:
     get:
       security:
         - bearerAuth: []
@@ -36,8 +36,7 @@ paths:
         "403":
           description: Vous ne disposez pas des droits nécessaires
 
-  /droits-profils/modifier:
-    post:
+    put:
       security:
         - bearerAuth: []
       operationId: modifier

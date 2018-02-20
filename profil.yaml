@@ -9,7 +9,7 @@ consumes: [ application/json ]
 produces: [ application/json ]
 
 paths:
-  /profil/liste:
+  /profil:
     get:
       security:
         - bearerAuth: []
@@ -28,33 +28,7 @@ paths:
         "404":
           description: Organisation ou utilisateur introuvable
 
-  /profil/consulter/{uuid}:
-    get:
-      security:
-        - bearerAuth: []
-      operationId: consulter
-      summary: Consulter un profil
-      parameters:
-        - in: path
-          name: uuid
-          format: uuid
-          type: string
-          required: true
-
-      responses:
-        "200":
-          description: Succés
-          schema:
-            $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Profil'
-        "401":
-          description: Credentials invalides
-        "403":
-          description: Vous ne disposez pas des droits nécessaires
-        "404":
-          description: Aucun profil pour le code
-
-  /profil/creer:
-    put:
+    post:
       security:
         - bearerAuth: []
       operationId: creer
@@ -77,8 +51,7 @@ paths:
         "409":
           description: Un profil existe déjà avec le même code
 
-  /profil/modifier:
-    post:
+    put:
       security:
         - bearerAuth: []
       operationId: modifier
@@ -103,7 +76,31 @@ paths:
         "409":
           description: Un profil existe déjà avec le même code
 
-  /profil/supprimer/{uuid}:
+  /profil/{uuid}:
+    get:
+      security:
+        - bearerAuth: []
+      operationId: consulter
+      summary: Consulter un profil
+      parameters:
+        - in: path
+          name: uuid
+          format: uuid
+          type: string
+          required: true
+
+      responses:
+        "200":
+          description: Succés
+          schema:
+            $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Profil'
+        "401":
+          description: Credentials invalides
+        "403":
+          description: Vous ne disposez pas des droits nécessaires
+        "404":
+          description: Aucun profil pour le code
+
     delete:
       security:
         - bearerAuth: []

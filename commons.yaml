@@ -41,10 +41,29 @@ definitions:
 
   Organisation:
     properties:
-      code:
+      uuid:
         type: string
+        format: uuid
       nom:
         type: string
+      code:
+        type: string
+      codePays:
+        type: string
+      nombreEtablissements:
+        type: integer
+      paysUuid:
+        type: string
+        format: uuid
+      status:
+        $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/enums.yaml#/definitions/StatusOrganisationEnum'
+      type:
+        $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/enums.yaml#/definitions/TypeOrganisationEnum'
+      logo:
+        type: string
+        format: uuid
+      adresse:
+        $ref: '#/definitions/Adresse'
 
   Etablissement:
     properties:
@@ -55,15 +74,18 @@ definitions:
 
   Pays:
     properties:
-      id:
-        type: string
       nom:
         type: string
+      codeIso2:
+        type: string
+      codeIso3:
+        type: string
+      codeNumerique:
+        type: integer
 
   Profil:
     type: object
     required:
-    - uuid
     - code
     - libelle
     - description
@@ -98,8 +120,78 @@ definitions:
       ville:
         type: string
 
+  NoeudOrganisationnel:
+    type: object
+    required:
+    - libelle
+    - description
+    - arbreOrganisationnelUuid
+    - children
+    properties:
+      uuid:
+        type: string
+        format: uuid
+      libelle:
+        type: string
+      description:
+        type: string
+      parentUuid:
+        type: string
+        format: uuid
+      children:
+        type: array
+        items:
+          $ref: '#/definitions/NoeudOrganisationnel'
+      etablissementUuid:
+        type: string
+        format: uuid
+      arbreOrganisationnelUuid:
+        type: string
+        format: uuid
+      typeUuid:
+        type: string
+        format: uuid
+      supprimable:
+        type: boolean
+
+  Role:
+    type: object
+    required:
+    - arbreRoleUuid
+    - profilUuid
+    - code
+    - libelle
+    - description
+    properties:
+      libelle:
+        type: string
+      code:
+        type: string
+      uuid:
+        type: string
+        format: uuid
+      description:
+        type: string
+      profilUuid:
+        type: string
+        format: uuid
+      administration:
+        type: boolean
+        default: false
+      rolesAutorises:
+        type: array
+        items:
+          $ref: '#/definitions/Role'
+      parentUuid:
+        type: string
+        format: uuid
+      arbreRoleUuid:
+        type: string
+        format: uuid
+
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+

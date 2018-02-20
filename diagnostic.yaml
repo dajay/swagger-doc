@@ -9,7 +9,7 @@ consumes: [ application/json ]
 produces: [ application/json ]
 
 paths:
-  /diagnostic/liste:
+  /diagnostic:
     get:
       security:
         - bearerAuth: []
@@ -39,7 +39,7 @@ paths:
         "400":
           description: Credentials invalides
 
-  /diagnostic/consulter/{uuid}:
+  /diagnostic/{uuid}:
     get:
       security:
         - bearerAuth: []

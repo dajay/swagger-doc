@@ -3,13 +3,13 @@ info:
   title: Novaxium - WebService
   version: "1.0.0"
 host: 127.0.0.1:8080
-basePath: /api/admin
+basePath: /api
 schemes: [ http, https ]
 consumes: [ application/json ]
 produces: [ application/json ]
 
 paths:
-  /web-service/lister:
+  /web-service:
     get:
       security:
         - bearerAuth: []
@@ -27,7 +27,7 @@ paths:
         "403":
           description: Vous ne disposez pas des droits nécessaires
 
-  /web-service/consulter/{uuid}:
+  /web-service/{uuid}:
     get:
       security:
         - bearerAuth: []

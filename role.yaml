@@ -3,42 +3,64 @@ info:
   title: Novaxium - Rôles
   version: "1.0.0"
 host: 127.0.0.1:8080
-basePath: /api/admin
+basePath: /api
 schemes: [ http, https ]
 consumes: [ application/json ]
 produces: [ application/json ]
 
 paths:
-  /role/lister/{arbreUuid}:
-    get:
+  /role:
+    post:
       security:
         - bearerAuth: []
-      operationId: lister
-      summary: Liste des rôles de l'arbre de rôles
+      operationId: creer
+      summary: Creer un role
       parameters:
-        - in: path
-          name: arbreUuid
-          format: uuid
-          type: string
-          required: true
-          description: Uuid de l'arbre de rôles
+        - in: body
+          name: role
+          schema:
+            $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Role'
+          description: Le rôle à créer.
+      responses:
+        "200":
+          description: succès
+          schema:
+            $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Role'
+        "400":
+          description: Ce role n'est pas modifiable
+        "401":
+          description: Credentials invalides
+        "403":
+          description: Vous ne disposez pas des droits nécessaires
+        "409":
+          description: Un role existe déjà avec le même code
+
+    put:
+      security:
+        - bearerAuth: []
+      operationId: modifier
+      summary: Modifier un rôle
+      parameters:
+        - in: body
+          name: role
+          schema:
+            $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Role'
+          description: le rôle à modifier
       responses:
         "200":
           description: Succès
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/Role'
+            $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Role'
         "400":
-          description: Bad request response
+          description: Ce rôle n'est pas modifiable
         "401":
           description: Credentials invalides
         "403":
           description: Vous ne disposez pas des droits nécessaires
         "404":
-          description: L'arbre rôles n'existe pas
+          description: Aucun rôle pour le code
 
-  /role/consulter/{uuid}:
+  /role/{uuid}:
     get:
       security:
         - bearerAuth: []
@@ -54,7 +76,7 @@ paths:
         "200":
           description: Succès
           schema:
-            $ref: '#/definitions/Role'
+            $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Role'
         "400":
           description: Bad request response
         "401":
@@ -62,59 +84,6 @@ paths:
         "404":
           description: Le rôle n'existe pas
 
-  /role/creer:
-    put:
-      security:
-        - bearerAuth: []
-      operationId: creer
-      summary: Creer un role
-      parameters:
-        - in: body
-          name: role
-          schema:
-            $ref: '#/definitions/Role'
-          description: Le rôle à créer.
-      responses:
-        "200":
-          description: succès
-          schema:
-            $ref: '#/definitions/Role'
-        "400":
-          description: Ce role n'est pas modifiable
-        "401":
-          description: Credentials invalides
-        "403":
-          description: Vous ne disposez pas des droits nécessaires
-        "409":
-          description: Un role existe déjà avec le même code
-
-  /role/modifier:
-    post:
-      security:
-        - bearerAuth: []
-      operationId: modifier
-      summary: Modifier un rôle
-      parameters:
-        - in: body
-          name: role
-          schema:
-            $ref: '#/definitions/Role'
-          description: le rôle à modifier
-      responses:
-        "200":
-          description: Succès
-          schema:
-            $ref: '#/definitions/Role'
-        "400":
-          description: Ce rôle n'est pas modifiable
-        "401":
-          description: Credentials invalides
-        "403":
-          description: Vous ne disposez pas des droits nécessaires
-        "404":
-          description: Aucun rôle pour le code
-
-  /role/supprimer/{uuid}:
     delete:
       security:
         - bearerAuth: []
@@ -138,7 +107,7 @@ paths:
           description: Le rôle n'existe pas
 
   /role/modifier-parents:
-    post:
+    put:
       security:
         - bearerAuth: []
       operationId: modifierParents
@@ -150,7 +119,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Role'
+              $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Role'
           description: La liste des rôles à modifier
       responses:
         "200":
@@ -158,7 +127,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Role'
+              $ref: 'https://raw.githubusercontent.com/dajay/swagger-doc/master/commons.yaml#/definitions/Role'
         "400":
           description: La liste n'est pas modifiable
         "401":
@@ -167,40 +136,3 @@ paths:
           description: Vous ne disposez pas des droits nécessaires
         "404":
           description: La liste n'existe pas
-
-definitions:
-  Role:
-    type: object
-    required:
-    - arbreRoleUuid
-    - profilUuid
-    - uuid
-    - code
-    - libelle
-    - description
-    properties:
-      libelle:
-        type: string
-      code:
-        type: string
-      uuid:
-        type: string
-        format: uuid
-      description:
-        type: string
-      profilUuid:
-        type: string
-        format: uuid
-      administration:
-        type: boolean
-        default: false
-      rolesAutorises:
-        type: array
-        items:
-          $ref: '#/definitions/Role'
-      parentUuid:
-        type: string
-        format: uuid
-      arbreRoleUuid:
-        type: string
-        format: uuid
