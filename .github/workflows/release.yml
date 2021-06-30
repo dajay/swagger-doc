@@ -44,7 +44,7 @@ jobs:
           NAME: stagingCommit
           LABEL: 'Staging deploy on commit'
           STATUS: ${{ github.sha }}
-          COLOR: 00EEFF
+          COLOR: 0BD491
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       # Runs integration release
