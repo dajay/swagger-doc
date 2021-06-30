@@ -37,8 +37,10 @@ jobs:
       
       # Runs staging release
       - name: Semantic Release
-        if: ${{ github.event.inputs == 'staging' }}
+        if: ${{ github.event.inputs.deploy == 'staging' }}
         uses: codfish/semantic-release-action@v1
+        with:
+          tag_format: 's${version}'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
