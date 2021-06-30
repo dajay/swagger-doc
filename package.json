@@ -1,5 +1,5 @@
 {
-  "name": "swagger doc",
+  "name": "swagger-doc",
   "version": "0.0.0",
   "scripts": {
     "prepare": "husky install"
@@ -12,6 +12,7 @@
   "release": {
     "branches": [
       "master"
-    ]
+    ],
+    "npmPublish": false
   }
 }
