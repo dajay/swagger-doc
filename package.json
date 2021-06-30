@@ -12,6 +12,7 @@
   "release": {
     "branches": [
       "master"
-    ]
+    ],
+    "npmPublish": false
   }
 }
