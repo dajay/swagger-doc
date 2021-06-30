@@ -28,39 +28,30 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs versionning
+#       # Runs versionning
 #       - name: Bump version and push tag
 #         uses: hennejg/github-tag-action@v4.3.1
 #         with:
 #           tag_prefix: s
 #           github_token: ${{ secrets.GITHUB_TOKEN }}
-      
-      # Runs staging release
-      - name: Semantic Release ${{ github.event.inputs.deploy }}
-        if: ${{ github.event.inputs.deploy == 'staging' }}
-        uses: codfish/semantic-release-action@v1
-        with:
-          tag_format: 's${version}'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+
       - id: date
         run: echo "##[set-output name=data;]$(date)"
       - name: Time badge
-        if: ${{ github.event.inputs.deploy == 'staging' }}
+#         if: ${{ github.event.inputs.deploy == 'staging' }}
         uses: RubbaBoy/BYOB@v1.2.0
         with:
-          NAME: time
-          LABEL: 'Updated at'
-          STATUS: ${{ steps.date.outputs.data }}
+          NAME: stagingCommit
+          LABEL: 'Staging deploy on commit'
+          STATUS: ${{ github.sha }}
           COLOR: 00EEFF
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
-#       # Runs integration release
-#       - name: Semantic Release
-#         uses: cycjimmy/semantic-release-action@v2
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Runs integration release
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
