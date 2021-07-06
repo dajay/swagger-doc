@@ -66,6 +66,6 @@ jobs:
             echo "deploy: ${{ github.event.inputs.deploy }}"         
 
       - name: deploy integration
-        if: ${{ env.GIT_BRANCH == 'main' && (github.event.inputs.deploy == '' || github.event.inputs.deploy == 'integration')}}
+        if: ${{ GITHUB_REF#refs/heads/ == 'main' && (github.event.inputs.deploy == '' || github.event.inputs.deploy == 'integration')}}
         run: |
             echo "deploy: integration"
