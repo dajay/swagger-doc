@@ -15,7 +15,8 @@ on:
     inputs:
         deploy:
             description: "Environment's name to deploy, must be integration, staging or prod"
-            required: false
+            required: true
+            default: 'integration'
             
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
