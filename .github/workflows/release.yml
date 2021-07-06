@@ -22,7 +22,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     env:
-      DEPLOY: 'integration'
+      GIT_BRANCH: main
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -66,6 +66,6 @@ jobs:
             echo "deploy: ${{ github.event.inputs.deploy }}"         
 
       - name: deploy integration
-        if: ${{ GITHUB_REF#refs/heads/ == 'main' && (github.event.inputs.deploy == '' || github.event.inputs.deploy == 'integration')}}
+        if: ${{ env.GIT_BRANCH == 'main' && (github.event.inputs.deploy == '' || github.event.inputs.deploy == 'integration')}}
         run: |
             echo "deploy: integration"
