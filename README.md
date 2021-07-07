@@ -5,3 +5,4 @@
 Run npm i to install git hooks
 
 add semantic release
+add advance tag action
