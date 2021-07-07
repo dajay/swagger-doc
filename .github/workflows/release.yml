@@ -50,11 +50,11 @@ jobs:
 #           COLOR: 0BD491
 #           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
-#       # Runs integration release
-#       - name: Semantic Release
-#         uses: cycjimmy/semantic-release-action@v2
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Runs integration release
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
 #       # Runs a set of commands using the runners shell
 #       - name: Run a multi-line script
@@ -65,7 +65,23 @@ jobs:
         run: |
             echo "deploy: ${{ github.event.inputs.deploy }}"         
 
-      - name: deploy integration
-        if: ${{ env.GIT_BRANCH == 'main' && (github.event.inputs.deploy == '' || github.event.inputs.deploy == 'integration')}}
-        run: |
-            echo "deploy: integration"
+      - name: Advance integration tag
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}          
+          script: |
+            try {
+                await github.git.deleteRef({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  ref: "tags/integration"
+                })
+            } catch (e) {
+              console.log("The integration tag doesn't exist yet: " + e)
+            }
+            await github.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: "refs/tags/integration",
+              sha: context.sha
+            })
