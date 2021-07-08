@@ -72,7 +72,7 @@ jobs:
           with:
               github-token: ${{secrets.GITHUB_TOKEN}}
               script: |
-                  const tagName = ${{env.ENVIRONMENT_TAG_NAME}};
+                  const tagName = '${{env.ENVIRONMENT_TAG_NAME}}';
                   try {
                       await github.git.deleteRef({
                           owner: context.repo.owner,
