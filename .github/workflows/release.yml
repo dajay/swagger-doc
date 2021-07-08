@@ -70,18 +70,19 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}          
           script: |
+            const tagName = 'integration';
             try {
                 await github.git.deleteRef({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  ref: "tags/integration"
+                  ref: "tags/"+tagName
                 })
             } catch (e) {
-              console.log("The integration tag doesn't exist yet: " + e)
+              console.log("The "+tagName+" tag doesn't exist yet: " + e)
             }
             await github.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: "refs/tags/integration",
+              ref: "refs/tags/"+tagName,
               sha: context.sha
             })
