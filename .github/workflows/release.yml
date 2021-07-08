@@ -72,18 +72,19 @@ jobs:
           with:
               github-token: ${{secrets.GITHUB_TOKEN}}
               script: |
+                  const tagName = ${{env.ENVIRONMENT_TAG_NAME}};
                   try {
                       await github.git.deleteRef({
                           owner: context.repo.owner,
                           repo: context.repo.repo,
-                          ref: "tags/$ENVIRONMENT_TAG_NAME"
+                          ref: "tags/"+tagName
                       })
                    } catch (e) {
-                       console.warn("Tag $ENVIRONMENT_TAG_NAME" not found: " + e)
+                       console.warn("Tag "+tagName+" not found: " + e)
                    }
                    await github.git.createRef({
                        owner: context.repo.owner,
                        repo: context.repo.repo,
-                       ref: "refs/tags/$ENVIRONMENT_TAG_NAME",
+                       ref: "refs/tags/"+tagName,
                        sha: context.sha
                    })
