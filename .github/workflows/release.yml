@@ -23,6 +23,7 @@ jobs:
   build:
     env:
       GIT_BRANCH: main
+      ENVIRONMENT_TAG_NAME: integration
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -65,24 +66,24 @@ jobs:
         run: |
             echo "deploy: ${{ github.event.inputs.deploy }}"         
 
-      - name: Advance integration tag
-        uses: actions/github-script@v3
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}          
-          script: |
-            const tagName = 'integration';
-            try {
-                await github.git.deleteRef({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  ref: "tags/"+tagName
-                })
-            } catch (e) {
-              console.log("The "+tagName+" tag doesn't exist yet: " + e)
-            }
-            await github.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: "refs/tags/"+tagName,
-              sha: context.sha
-            })
+      -   name: Move environment tag
+          if: ${{ env.ENVIRONMENT_TAG_NAME}}
+          uses: actions/github-script@v4.0.2
+          with:
+              github-token: ${{secrets.GITHUB_TOKEN}}
+              script: |
+                  try {
+                      await github.git.deleteRef({
+                          owner: context.repo.owner,
+                          repo: context.repo.repo,
+                          ref: "tags/$ENVIRONMENT_TAG_NAME"
+                      })
+                   } catch (e) {
+                       console.warn("Tag $ENVIRONMENT_TAG_NAME" not found: " + e)
+                   }
+                   await github.git.createRef({
+                       owner: context.repo.owner,
+                       repo: context.repo.repo,
+                       ref: "refs/tags/$ENVIRONMENT_TAG_NAME",
+                       sha: context.sha
+                   })
