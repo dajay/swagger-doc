@@ -53,7 +53,7 @@ jobs:
           
       # Runs integration release
       - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v2
+        uses: codfish/semantic-release-action@v1
         with:
           tag_format: 's${version}'
         env:
