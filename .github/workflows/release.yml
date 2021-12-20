@@ -55,7 +55,7 @@ jobs:
       - name: Semantic Release
         uses: codfish/semantic-release-action@v1
         with:
-          tag_format: 's${version}'
+          tag_format: 'staging${version}'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
