@@ -69,7 +69,7 @@ jobs:
             -   name: Semantic Release
                 uses: codfish/semantic-release-action@v1
                 with:
-                    tag_format: 'integration${version}'
+                    tag_format: ${{ env.GIT_BRANCH }}'${version}'
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
