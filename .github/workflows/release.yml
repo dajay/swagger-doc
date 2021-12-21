@@ -85,7 +85,7 @@ jobs:
                 run: |
                     git config --local user.email "github-actions[bot]@cygogn.com"
                     git config --local user.name "github-actions[bot]"
-                    git commit -m "update pom version" -a
+                    git commit -m "Update pom version" -a
             -   name: Push changes
                 uses: ad-m/github-push-action@master
                 with:
