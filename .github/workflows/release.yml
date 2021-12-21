@@ -75,7 +75,7 @@ jobs:
                               'main',
                               'pom'
                       ]
-                    tag_format: ${{ env.GIT_BRANCH }}'${version}'
+                    tag_format: '${{ env.GIT_BRANCH }}${version}'
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
