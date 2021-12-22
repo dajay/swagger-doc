@@ -1,7 +1,13 @@
 version: 2
+registries:
+    maven-cygogn:
+        type: maven-repository
+        url: https://maven.pkg.github.com/octocat
+        username: dajay
+        password: ${{secrets.MAVEN_TOKEN}}
 updates:
     - package-ecosystem: "maven" # See documentation for possible values
       directory: "/" # Location of package manifests
-      target-branch: "pom"
+      target-branch: "main"
       schedule:
           interval: "daily"
