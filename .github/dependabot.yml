@@ -5,6 +5,7 @@ registries:
         url: https://maven.pkg.github.com/octocat
         username: dajay
         password: ${{secrets.MAVEN_TOKEN}}
+
 updates:
     -   package-ecosystem: "maven" # See documentation for possible values
         directory: "/" # Location of package manifests
