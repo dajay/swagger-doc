@@ -86,9 +86,9 @@ jobs:
 
             -   name: update version artifact
                 run: |
-                    ./mvnw -B -DskipTests release:update-versions
                     ./mvnw deploy
-
+                env:
+                    GITHUB_TOKEN: ${{ secrets.MAVEN_TOKEN }}
 #            -   name: Commit files
 #                run: |
 #                    git config --local user.email "github-actions[bot]@cygogn.com"
