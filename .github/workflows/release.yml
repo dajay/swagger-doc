@@ -85,7 +85,9 @@ jobs:
             #           echo test, and deploy your project.
 
             -   name: update version artifact
-                run: ./mvnw -B -DskipTests release:update-versions
+                run: |
+                    ./mvnw -B -DskipTests release:update-versions
+                    ./mvnw deploy
 
 #            -   name: Commit files
 #                run: |
