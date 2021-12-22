@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>fr.redfroggy</groupId>
-    <artifactId>swagger-doc</artifactId>
+    <artifactId>swagger-doc-ultimate</artifactId>
     <version>1.1.7-SNAPSHOT</version>
 
     <distributionManagement>
@@ -11,6 +11,11 @@
             <name>GitHub Apache Maven Packages</name>
             <url>https://maven.pkg.github.com/dajay/maven</url>
         </repository>
+        <snapshotRepository>
+            <id>github</id>
+            <name>GitHub Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/dajay/maven</url>
+        </snapshotRepository>
     </distributionManagement>
     <repositories>
         <repository>
@@ -25,8 +30,8 @@
     <dependencies>
         <dependency>
             <groupId>fr.redfroggy</groupId>
-            <artifactId>swagger-doc-ultimate</artifactId>
-            <version>1.1.7</version>
+            <artifactId>swagger-doc</artifactId>
+            <version>1.1.5-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>
