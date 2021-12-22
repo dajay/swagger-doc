@@ -25,7 +25,7 @@
     <dependencies>
         <dependency>
             <groupId>fr.redfroggy</groupId>
-            <artifactId>swagger-doc</artifactId>
+            <artifactId>swagger-doc-ultimate</artifactId>
             <version>1.1.5-SNAPSHOT</version>
         </dependency>
     </dependencies>
