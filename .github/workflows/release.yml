@@ -66,18 +66,18 @@ jobs:
                 #           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             # Runs integration release
-            -   name: Semantic Release
-                uses: codfish/semantic-release-action@v1
-                with:
-                    branches: |
-                      [
-                              'master',
-                              'main',
-                              'pom'
-                      ]
-                    tag_format: '${{ env.GIT_BRANCH }}${version}'
-                env:
-                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#            -   name: Semantic Release
+#                uses: codfish/semantic-release-action@v1
+#                with:
+#                    branches: |
+#                      [
+#                              'master',
+#                              'main',
+#                              'pom'
+#                      ]
+#                    tag_format: '${{ env.GIT_BRANCH }}${version}'
+#                env:
+#                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             #       # Runs a set of commands using the runners shell
             #       - name: Run a multi-line script
@@ -100,29 +100,29 @@ jobs:
 #                    github_token: ${{ secrets.GITHUB_TOKEN }}
 #                    branch: ${{ github.ref }}
 
-            -   name: printInputs
-                run: |
-                    echo "deploy: ${{ github.event.inputs.deploy }}"         
-
-            -   name: Move environment tag
-                if: ${{ env.ENVIRONMENT_TAG_NAME}}
-                uses: actions/github-script@v4.0.2
-                with:
-                    github-token: ${{secrets.GITHUB_TOKEN}}
-                    script: |
-                        const tagName = '${{env.ENVIRONMENT_TAG_NAME}}';
-                        try {
-                            await github.git.deleteRef({
-                                owner: context.repo.owner,
-                                repo: context.repo.repo,
-                                ref: "tags/"+tagName
-                            })
-                         } catch (e) {
-                             console.warn("Tag "+tagName+" not found: " + e)
-                         }
-                         await github.git.createRef({
-                             owner: context.repo.owner,
-                             repo: context.repo.repo,
-                             ref: "refs/tags/"+tagName,
-                             sha: context.sha
-                         })
+#            -   name: printInputs
+#                run: |
+#                    echo "deploy: ${{ github.event.inputs.deploy }}"
+#
+#            -   name: Move environment tag
+#                if: ${{ env.ENVIRONMENT_TAG_NAME}}
+#                uses: actions/github-script@v4.0.2
+#                with:
+#                    github-token: ${{secrets.GITHUB_TOKEN}}
+#                    script: |
+#                        const tagName = '${{env.ENVIRONMENT_TAG_NAME}}';
+#                        try {
+#                            await github.git.deleteRef({
+#                                owner: context.repo.owner,
+#                                repo: context.repo.repo,
+#                                ref: "tags/"+tagName
+#                            })
+#                         } catch (e) {
+#                             console.warn("Tag "+tagName+" not found: " + e)
+#                         }
+#                         await github.git.createRef({
+#                             owner: context.repo.owner,
+#                             repo: context.repo.repo,
+#                             ref: "refs/tags/"+tagName,
+#                             sha: context.sha
+#                         })
