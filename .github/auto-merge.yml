@@ -1,0 +1,3 @@
+- match:
+    dependency_name: fr.redfroggy*
+    update_type: all
