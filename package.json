@@ -2,12 +2,15 @@
   "name": "swagger-doc",
   "version": "0.0.0",
   "scripts": {
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "release": "semantic-release"
   },
   "devDependencies": {
     "@commitlint/cli": "12.1.4",
     "@commitlint/config-conventional": "12.1.4",
-    "husky": "6.0.0"
+    "husky": "6.0.0",
+    "@conveyal/maven-semantic-release": "^5.0.0",
+    "semantic-release": "^17.4.7"
   },
   "release": {
     "branches": [
