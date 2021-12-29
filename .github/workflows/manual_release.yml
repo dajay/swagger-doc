@@ -5,7 +5,7 @@ name: Manual release
 on:
     workflow_dispatch:
         inputs:
-            fromTag:
+            fromBranch:
                 description: "Git tag that shall be deployed"
                 required: true
             deployEnv:
@@ -25,7 +25,7 @@ jobs:
     # This workflow contains a single job called "build"
     build:
         env:
-#            GIT_BRANCH: main
+            GIT_BRANCH: ${{ github.event.inputs.fromBranch }}
             ENVIRONMENT_TAG_NAME: integration
         # The type of runner that the job will run on
         runs-on: ubuntu-latest
@@ -43,7 +43,7 @@ jobs:
             # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
             -   uses: actions/checkout@v2
                 with:
-                    ref: ${{ github.event.inputs.fromTag }}
+                    ref: ${{ github.event.inputs.fromBranch }}
                     fetch-depth: 1
 
             -   name: Semantic Release
@@ -51,7 +51,7 @@ jobs:
                 with:
                     branches: |
                         [
-                                'master',
+                                ${{ github.event.inputs.fromBranch }},
                                 'main',
                         ]
                     tag_format: 'v${version}_${{ github.event.inputs.deployEnv }}'
