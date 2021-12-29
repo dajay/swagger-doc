@@ -45,7 +45,7 @@ jobs:
                     ref: ${{ github.event.inputs.fromTag }}
             -   run: |
                   git checkout -b ${{ github.event.inputs.deployEnv }}
-                  git push --force
+                  git push --set-upstream --force origin ${{ github.event.inputs.deployEnv }}
 
             -   name: Semantic Release
                 uses: codfish/semantic-release-action@v1
