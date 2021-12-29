@@ -53,6 +53,6 @@ jobs:
                                 ${{ github.event.inputs.fromBranch }},
                                 'main',
                         ]
-                    tag_format: 'v${version}_${{ github.event.inputs.deployEnv }}'
+                    tag_format: 'v${version}_stg'
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
