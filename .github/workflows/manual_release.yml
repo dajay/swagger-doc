@@ -50,9 +50,9 @@ jobs:
                 with:
                     branches: |
                         [
+                                'master'
                                 'main',
-                                'master',
                         ]
-                    tag_format: 'v${version}_stg'
+                    tag_format: 'v${version}_${{ github.event.inputs.deployEnv }}'
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
