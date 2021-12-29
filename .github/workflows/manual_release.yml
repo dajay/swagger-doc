@@ -50,8 +50,8 @@ jobs:
                 with:
                     branches: |
                         [
-                                ${{ github.event.inputs.fromBranch }},
                                 'main',
+                                'master',
                         ]
                     tag_format: 'v${version}_stg'
                 env:
