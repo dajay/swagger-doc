@@ -73,7 +73,6 @@ jobs:
                       [
                               'master',
                               'main',
-                              'pom'
                       ]
                     tag_format: 'v${version}_int'
                 env:
