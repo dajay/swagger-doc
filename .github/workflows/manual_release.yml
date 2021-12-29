@@ -26,6 +26,7 @@ jobs:
     build:
         env:
             ENVIRONMENT_TAG_NAME: integration
+            DEPLOY_BRANCH_NAME: deploy/${{ github.event.inputs.deployEnv }}
         # The type of runner that the job will run on
         runs-on: ubuntu-latest
 
@@ -44,8 +45,8 @@ jobs:
                 with:
                     ref: ${{ github.event.inputs.fromTag }}
             -   run: |
-                  git checkout -b ${{ github.event.inputs.deployEnv }}
-                  git push --set-upstream --force origin ${{ github.event.inputs.deployEnv }}
+                  git checkout -b ${{ en.DEPLOY_BRANCH_NAME }}
+                  git push --set-upstream --force origin ${{ en.DEPLOY_BRANCH_NAME }}
 
             -   name: Semantic Release
                 uses: codfish/semantic-release-action@v1
@@ -70,3 +71,5 @@ jobs:
                     tag_format: 'v${version}_${{ github.event.inputs.deployEnv }}'
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            -   run: git push origin --delete ${{ en.DEPLOY_BRANCH_NAME }}
