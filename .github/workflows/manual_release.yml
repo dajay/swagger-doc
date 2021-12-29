@@ -5,9 +5,9 @@ name: Manual release
 on:
     workflow_dispatch:
         inputs:
-#            fromTag:
-#                description: "Git tag that shall be deployed"
-#                required: true
+            fromTag:
+                description: "Git tag that shall be deployed"
+                required: true
             deployEnv:
                 description: "Environment's name to deploy, must be stg or prod"
                 options:
@@ -42,7 +42,10 @@ jobs:
             # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
             -   uses: actions/checkout@v2
                 with:
-                    fetch-depth: 0
+                    ref: ${{ github.event.inputs.fromTag }}
+            -   run: |
+                  git checkout -b ${{ github.event.inputs.deployEnv }}
+                  git push --force
 
             -   name: Semantic Release
                 uses: codfish/semantic-release-action@v1
@@ -54,6 +57,7 @@ jobs:
                             'master',
                             'next',
                             'next-major',
+                            ${{ github.event.inputs.deployEnv }},
                           {
                               name: 'beta',
                               prerelease: true
